@@ -1,58 +1,69 @@
-let campos = document.querySelectorAll("input");
+const campos_input = document.querySelectorAll("input");
+const campo_tipo_contacto = document.querySelector("select");
+const campo_descripcion = document.querySelector("textarea");
 
-//parrafos de error
+//párrafos de error
 let parrafos = document.querySelectorAll("p");
 
 let errorNombre = parrafos[0];
 let errorApellido = parrafos[1];
-let errorEmail = parrafos[2];
-let errorPassword = parrafos[3];
-let errorRepetirPassword = parrafos[4];
-let errorTelefono = parrafos[5];
+let errorTelefono = parrafos[2];
+let errorEmail = parrafos[3];
+let errorTipoContacto = parrafos[4];
+let errorAsunto = parrafos[5];
+let errorDescripcion = parrafos[7];
 
 //para validar el formulario
 function validar(event){
-    //para verificar que ningún campo esté vacío
-    if (campos[0].value === "") {
+    /* Para verificar que los campos estén completos correctamente, y
+    en caso de no estarlo, no enviar el formulario y mostrar el mensaje
+    de error correspondiente */
+
+    //campo nombre
+    if (campos_input[0].value === "") {
         event.preventDefault();
         errorNombre.innerText="Este campo es obligatorio";
     };
 
-    if (campos[1].value === "") {
+    //campo apellido
+    if (campos_input[1].value === "") {
         event.preventDefault();
         errorApellido.innerText="Este campo es obligatorio";
     };
 
-    if (campos[2].value === "") {
+    /*campo telefono:
+    Para que, al ser opcional, el usuario pueda dejarlo vacío, y en caso
+    de que tenga contenido, verificar que sea numérico
+    */
+    if (campos_input[2].value !== "") {
+        if (campos_input[2].value !== Number) {
+            event.preventDefault();
+            errorTelefono.innerText="Este campo solo acepta caracteres numéricos.";
+        }
+    };
+
+    //campo email
+    if (campos_input[3].value === "") {
         event.preventDefault();
         errorEmail.innerText="Este campo es obligatorio";
     };
 
-    if (campos[3].value === "") {
+    //campo tipo contacto
+    if (campo_tipo_contacto.value === "") {
         event.preventDefault();
-        errorPassword.innerText="Este campo es obligatorio";
+        errorTipoContacto.innerText="Debe seleccionar una opción";
     };
 
-    if (campos[4].value === "") {
+    //campo asunto
+    if (campos_input[4].value === "") {
         event.preventDefault();
-        errorRepetirPassword.innerText="Este campo es obligatorio";
-    }else {
-        //para verificar que las contraseñas sean iguales 
-        if (campos[3].value !== campos[4].value){
-            event.preventDefault();
-            errorRepetirPassword.innerText="Las contraseñas no coinciden";
-        }
-    };
-
-    if (campos[5].value === "") {
-        event.preventDefault();
-        errorTelefono.innerText="Este campo es obligatorio";
+        errorAsunto.innerText="Este campo es obligatorio";
     }
-    
-    
-    if (campos[5].value !== Number) {
+
+    //campo descripcion
+    if (campo_descripcion.value === "") {
         event.preventDefault();
-        errorTelefono.innerText="Este campo solo acepta caracteres numéricos.";
-    };
+        errorDescripcion.innerText="Este campo es obligatorio";
+    }
 
 };

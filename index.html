@@ -19,13 +19,13 @@
         <form action="">
             <ul class="list-unstyled">
                 <li>
-                    <label for="nombre">Nombre: </label>
+                    <label for="nombre">(*) Nombre: </label>
                     <input class="rounded" type="text" name="nombre">
                     <p class="error"></p>
                 </li>
 
                 <li class="item">
-                    <label for="apellido">Apellido: </label>
+                    <label for="apellido">(*) Apellido: </label>
                     <input class="rounded" type="text" name="apellido">
                     <p class="error"></p>
                 </li>
@@ -37,13 +37,13 @@
                 </li>
 
                 <li class="item">
-                    <label for="email">E-mail: </label>
+                    <label for="email">(*) E-mail: </label>
                     <input class="rounded" type="email" name="email">
                     <p class="error"></p>
                 </li>
 
                 <li class="item">
-                    <label for="tipo">Tipo de contacto: </label>
+                    <label for="tipo">(*) Tipo de contacto: </label>
                     <select class="rounded" name="" id="">
                         <option value="">Seleccionar</option>
                         <option value="soporte">Soporte</option>
@@ -53,19 +53,21 @@
                 </li>
 
                 <li class="item">
-                    <label for="asunto">Asunto: </label>
+                    <label for="asunto">(*) Asunto: </label>
                     <input class="rounded" type="text" name="asunto">
                     <p class="error"></p>
                 </li>
 
                 <li class="item">
-                    <label for="descripcion">Descripción: </label>
-                    <textarea class="rounded" name="descripcion" id=""></textarea>
+                    <label for="descripcion">(*) Descripción: </label>
+                    <textarea id="descipcion" class="rounded" name="descripcion" 
+                    maxlength="1000"></textarea>
+                    <p id="contador">0/1000 caracteres</p>
                     <p class="error"></p>
                 </li>
 
                 <li class="item">
-                    <input class="bg-primary p-3 text-light rounded" type="submit">
+                    <input onclick=validar(event) class="bg-primary p-3 text-light rounded" type="submit">
                 </li>
             </ul>
         </form>
