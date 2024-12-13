@@ -28,7 +28,7 @@ let errorAsunto = parrafos[5];
 let errorDescripcion = parrafos[7];
 
 //para validar el formulario
-function validar(event){
+const validar = (event) => {
     /* Para verificar que los campos estén completos correctamente, y
     en caso de no estarlo, no enviar el formulario y mostrar el mensaje
     de error correspondiente */
@@ -37,22 +37,29 @@ function validar(event){
     if (campos_input[0].value === "") {
         event.preventDefault();
         errorNombre.innerText="Este campo es obligatorio";
+    }else{
+        errorNombre.innerText="";
     };
 
     //campo apellido
     if (campos_input[1].value === "") {
         event.preventDefault();
         errorApellido.innerText="Este campo es obligatorio";
+    }else{
+        errorApellido.innerText="";
     };
 
     /*campo telefono:
     Para que, al ser opcional, el usuario pueda dejarlo vacío, y en caso
-    de que tenga contenido, verificar que sea numérico
+    de que tenga contenido, verificar que sea numérico; en caso de error
+    mostrar el mensaje y si se corrige el error el mensaje desaparezca
     */
     if (campos_input[2].value !== "") {
-        if (campos_input[2].value !== Number) {
+        if (!/^\d+$/.test(campos_input[2].value)) {
             event.preventDefault();
             errorTelefono.innerText="Este campo solo acepta caracteres numéricos.";
+        }else{
+            errorTelefono.innerText="";
         }
     };
 
@@ -60,24 +67,32 @@ function validar(event){
     if (campos_input[3].value === "") {
         event.preventDefault();
         errorEmail.innerText="Este campo es obligatorio";
+    }else{
+        errorEmail.innerText="";
     };
 
     //campo tipo contacto
     if (campo_tipo_contacto.value === "") {
         event.preventDefault();
         errorTipoContacto.innerText="Debe seleccionar una opción";
+    }else{
+        errorTipoContacto.innerText="";
     };
 
     //campo asunto
     if (campos_input[4].value === "") {
         event.preventDefault();
         errorAsunto.innerText="Este campo es obligatorio";
-    }
+    }else{
+        errorAsunto.innerText="";
+    };
 
     //campo descripcion
     if (campo_descripcion.value === "") {
         event.preventDefault();
         errorDescripcion.innerText="Este campo es obligatorio";
-    }
+    }else{
+        errorDescripcion.innerText="";
+    };
 
 };
