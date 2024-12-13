@@ -2,6 +2,20 @@ const campos_input = document.querySelectorAll("input");
 const campo_tipo_contacto = document.querySelector("select");
 const campo_descripcion = document.querySelector("textarea");
 
+//contador de caracteres del campo descripción
+document.getElementById("descripcion").addEventListener("input",
+    function contarCaracteres(){
+        const maxLength = this.maxLength; /*cantidad máxima de
+        caracteres permitidos*/ 
+
+        const lengthActual = this.value.length; /*cantidad actual
+        de caracteres escritos*/
+
+        document.getElementById("contador").innerText = 
+        `${lengthActual} / ${maxLength} caracteres`;
+    }
+);
+
 //párrafos de error
 let parrafos = document.querySelectorAll("p");
 
