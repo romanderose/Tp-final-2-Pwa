@@ -95,4 +95,53 @@ const validar = (event) => {
         errorDescripcion.innerText="";
     };
 
+    //para buscar el archivo mensaje.txt
+    const getMensaje = () => {
+        const http = new XMLHttpRequest();
+    
+        http.onreadystatechange = () => {
+            console.log("onreadystatechange");
+            console.log("Ready state: " + http.readyState);
+            console.log("Status: " + http.status);
+        };
+    
+    if (http.readyState == 4 && http.status == 200) {
+        document.getElementById("mensaje").innerHTML = http.responseText;
+    };
+        const archivo = './mensaje.txt';
+
+        http.open('GET', archivo, true);
+    
+        http.send();
+    };
+
+    //para obtener los datos de la funcion getMensaje
+    const obtenerDatos = () => {
+        return new Promise((resolve,reject) =>{
+            setTimeout(()=>{
+                const exito = true;
+
+                if (exito) {
+                    resolve({data : getMensaje()});
+                }else{
+                    reject("Error al obtener datos.");
+                }
+            }, 3000);
+        });
+    };
+
+    //para buscar los datos y mostrarlos por consola 
+    const fetchData = async () => {
+        try {
+            console.log("Solicitando datos...");
+            event.preventDefault();
+            const resultado = await obtenerDatos();
+            console.log("Datos recibidos", resultado.data);
+        } catch (error) {
+            console.error("Error: ", error);
+        };
+    };
+
+    fetchData();
+
 };
