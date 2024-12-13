@@ -27,8 +27,30 @@ let errorTipoContacto = parrafos[4];
 let errorAsunto = parrafos[5];
 let errorDescripcion = parrafos[7];
 
+//Solicitud AJAX para buscar el archivo mensaje.txt
+const getMensaje = (event) => {
+    const http = new XMLHttpRequest();
+
+    http.onreadystatechange = () => {
+        //console.log("onreadystatechange");
+        //console.log("Ready state: " + http.readyState);
+        //console.log("Status: " + http.status);
+
+        if (http.readyState === 4 && http.status === 200) {
+        document.getElementById("mensaje").innerHTML = http.responseText;
+        };
+
+    };
+
+    http.open('GET', 'http://localhost:5500/mensaje.txt', true);
+
+    http.send();
+};
+
 //para validar el formulario
 const validar = (event) => {
+    valid = true;
+
     /* Para verificar que los campos estén completos correctamente, y
     en caso de no estarlo, no enviar el formulario y mostrar el mensaje
     de error correspondiente */
@@ -37,6 +59,7 @@ const validar = (event) => {
     if (campos_input[0].value === "") {
         event.preventDefault();
         errorNombre.innerText="Este campo es obligatorio";
+        valid = false;
     }else{
         errorNombre.innerText="";
     };
@@ -45,6 +68,7 @@ const validar = (event) => {
     if (campos_input[1].value === "") {
         event.preventDefault();
         errorApellido.innerText="Este campo es obligatorio";
+        valid = false;
     }else{
         errorApellido.innerText="";
     };
@@ -58,6 +82,7 @@ const validar = (event) => {
         if (!/^\d+$/.test(campos_input[2].value)) {
             event.preventDefault();
             errorTelefono.innerText="Este campo solo acepta caracteres numéricos.";
+            valid = false;
         }else{
             errorTelefono.innerText="";
         }
@@ -67,6 +92,7 @@ const validar = (event) => {
     if (campos_input[3].value === "") {
         event.preventDefault();
         errorEmail.innerText="Este campo es obligatorio";
+        valid = false;
     }else{
         errorEmail.innerText="";
     };
@@ -75,6 +101,7 @@ const validar = (event) => {
     if (campo_tipo_contacto.value === "") {
         event.preventDefault();
         errorTipoContacto.innerText="Debe seleccionar una opción";
+        valid = false;
     }else{
         errorTipoContacto.innerText="";
     };
@@ -83,6 +110,7 @@ const validar = (event) => {
     if (campos_input[4].value === "") {
         event.preventDefault();
         errorAsunto.innerText="Este campo es obligatorio";
+        valid = false;
     }else{
         errorAsunto.innerText="";
     };
@@ -91,57 +119,15 @@ const validar = (event) => {
     if (campo_descripcion.value === "") {
         event.preventDefault();
         errorDescripcion.innerText="Este campo es obligatorio";
+        valid = false;
     }else{
         errorDescripcion.innerText="";
     };
 
-    //para buscar el archivo mensaje.txt
-    const getMensaje = () => {
-        const http = new XMLHttpRequest();
-    
-        http.onreadystatechange = () => {
-            console.log("onreadystatechange");
-            console.log("Ready state: " + http.readyState);
-            console.log("Status: " + http.status);
-        };
-    
-    if (http.readyState == 4 && http.status == 200) {
-        document.getElementById("mensaje").innerHTML = http.responseText;
-    };
-        const archivo = './mensaje.txt';
-
-        http.open('GET', archivo, true);
-    
-        http.send();
-    };
-
-    //para obtener los datos de la funcion getMensaje
-    const obtenerDatos = () => {
-        return new Promise((resolve,reject) =>{
-            setTimeout(()=>{
-                const exito = true;
-
-                if (exito) {
-                    resolve({data : getMensaje()});
-                }else{
-                    reject("Error al obtener datos.");
-                }
-            }, 3000);
-        });
-    };
-
-    //para buscar los datos y mostrarlos por consola 
-    const fetchData = async () => {
-        try {
-            console.log("Solicitando datos...");
-            event.preventDefault();
-            const resultado = await obtenerDatos();
-            console.log("Datos recibidos", resultado.data);
-        } catch (error) {
-            console.error("Error: ", error);
-        };
-    };
-
-    fetchData();
+    if(valid){
+        event.preventDefault();
+        alert("Datos enviados exitosamente.")
+        getMensaje();
+    }
 
 };
